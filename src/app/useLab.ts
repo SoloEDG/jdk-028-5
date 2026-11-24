@@ -5,6 +5,7 @@ import { usePlacement } from "@/features/catalog";
 import { useCircuit } from "@/features/circuit";
 import { useSimulation } from "@/features/simulation";
 import { useChallenge } from "@/features/challenge";
+import { useProof } from "@/features/proof";
 import { loadInitial, useWorkspace } from "@/features/workspace";
 export function useLab() {
   const initial = loadInitial(),
@@ -25,6 +26,7 @@ export function useLab() {
     challenge.reset();
     placement.tool.value = null;
   });
+  const proof = useProof(() => document.value, notify);
   function place(point: Point) {
     if (!placement.tool.value) return;
     if (document.value.nodes.length >= 120) {
@@ -74,6 +76,7 @@ export function useLab() {
     simulation,
     challenge,
     workspace,
+    proof,
     place,
     move,
     cancel,

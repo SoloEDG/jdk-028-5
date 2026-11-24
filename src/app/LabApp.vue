@@ -4,6 +4,7 @@ import { CatalogPanel } from "@/features/catalog";
 import { CircuitBoard } from "@/features/circuit";
 import { InputRack, SignalMonitor } from "@/features/simulation";
 import { ChallengePanel } from "@/features/challenge";
+import { ProofModal } from "@/features/proof";
 import { WorkspaceBar } from "@/features/workspace";
 import { useLab } from "./useLab";
 const lab = useLab();
@@ -73,6 +74,9 @@ onUnmounted(() => window.removeEventListener("keydown", keydown));
             ><button :disabled="!pending && !tool" @click="lab.cancel">
               取消 / Esc
             </button>
+            <button class="proof-launch" @click="lab.proof.openWorkbench()">
+              等价证明台
+            </button>
           </div>
         </div>
         <div class="mode-strip" v-if="tool || pending">
@@ -137,6 +141,7 @@ onUnmounted(() => window.removeEventListener("keydown", keydown));
         @hint="hint = !hint"
       />
     </main>
+    <ProofModal :proof="lab.proof" />
     <footer class="status-bar" :class="notice.tone" role="status">
       <span
         >{{
